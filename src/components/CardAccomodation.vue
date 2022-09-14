@@ -1,25 +1,38 @@
 <template>
   <!-- row 1 -->
-  <div class="col-3 ticket-location">
+  <div
+    class="col-3 ticket-location mb-3"
+    @click="handleShowDetail(accomodation.id)"
+  >
     <img
-      src="https://a0.muscache.com/im/pictures/be5ec43d-245a-4c09-9bb7-a5e1b8eb56b3.jpg?im_w=720"
+      :src="accomodation.imgUrl"
       alt=""
-      class="img-fluid rounded"
-      style="width: 300px; height: 220px; object-fit: cover"
+      class="img-fluid rounded-4"
+      style="width: 300px; height: 240px; object-fit: cover"
     />
     <br /><br />
     <p class="fw-bold">{{ accomodation.name }}</p>
-    <p class="text-secondary">Kecamatan Borobudur</p>
-    <p class="fw-bold">Rp. 300.000</p>
+    <p class="text-secondary">{{ accomodation.location }}</p>
+    <p class="fw-bold">
+      {{
+        accomodation.price?.toLocaleString("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        })
+      }}
+    </p>
   </div>
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useAccomodationStore } from "../stores/accomodation.js";
+
 export default {
   name: "CardAccomodation",
   props: ["accomodation"],
-  created() {
-    console.log(this.accomodation);
+  methods: {
+    ...mapActions(useAccomodationStore, ["handleShowDetail"]),
   },
 };
 </script>

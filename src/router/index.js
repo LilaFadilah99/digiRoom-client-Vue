@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
-import DetailPage from '../views/DetailPage.vue'
-import AccountPage from '../views/AccountPage.vue'
-import FavoritePage from '../views/FavoritePage.vue'
+import DetailPage from "../views/DetailPage.vue";
+import AccountPage from "../views/AccountPage.vue";
+import FavoritePage from "../views/FavoritePage.vue";
 
 const routes = [
   {
@@ -11,7 +11,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/detail",
+    path: "/detail/:id",
     name: "detail",
     component: DetailPage,
   },

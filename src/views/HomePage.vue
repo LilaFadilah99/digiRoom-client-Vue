@@ -2,13 +2,13 @@
   <div>
     <CustomNavbar />
     <section id="accomodation">
-      <div class="container-fluid">
+      <div class="container-fluid my-5">
         <div class="container">
-          <div class="row mb-3">
+          <div class="row">
             <CardAccomodation
               v-for="accomodation in accomodations"
               :key="accomodation.id"
-              @accomodation="accomodation"
+              :accomodation="accomodation"
             />
           </div>
         </div>
@@ -48,5 +48,4 @@ export default {
 </script>
 
 <style>
-@import url("../style.css");
 </style>

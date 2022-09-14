@@ -7,22 +7,20 @@
       <div class="container-fluid my-5">
         <div class="container hero-image">
           <h3 class="fw-bold">
-            Pandhega 2 House 3BR dengan Kolam Renang di Borobudur
+            {{ detailAccomodation.name }}
           </h3>
           <p>
             <i class="fa-solid fa-star"></i> 40 Ulasan
             <span class="fw-bold">.</span>
             <i class="fa-solid fa-medal"></i> Host Teladan
             <span class="fw-bold">.</span>
-            <span class="fw-bold"
-              >Kecamatan Borobudur, Jawa Tengah, Indonesia</span
-            >
+            <span class="fw-bold">{{ detailAccomodation.location }}</span>
           </p>
           <div class="col-12">
             <div class="row">
               <div class="col-6">
                 <img
-                  src="https://a0.muscache.com/im/pictures/f7ead0a3-5474-481f-ab58-20c1c538b257.jpg?im_w=960"
+                  :src="detailAccomodation.imgUrl"
                   alt=""
                   class="img-fluid rounded-start"
                 />
@@ -42,6 +40,7 @@
                       src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
                       alt=""
                       class="img-fluid"
+                      style="width: 500px; height: 175px; object-fit: cover"
                     />
                   </div>
                 </div>
@@ -51,6 +50,7 @@
                       src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
                       alt=""
                       class="img-fluid"
+                      style="width: 500px; height: 175px; object-fit: cover"
                     />
                   </div>
                   <div class="col-6">
@@ -58,6 +58,7 @@
                       src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
                       alt=""
                       class="img-fluid"
+                      style="width: 500px; height: 175px; object-fit: cover"
                     />
                   </div>
                 </div>
@@ -139,15 +140,7 @@
                 <hr />
                 <div class="row my-3">
                   <p>
-                    Bersantai bersama seluruh keluarga di rumah Lapish yang
-                    autentik. Termasuk perapian dan sauna. Berburu Nothern
-                    Lights dari jendela Anda. Nikmati ski, selancar salju (1 km
-                    ke resor), husky di musim dingin, memancing, memetik buah
-                    beri, dan hiking di musim panas! Kami terletak di lereng
-                    selatan Kaunispää yang berada di tengah - tengah Saariselkä.
-                    Mudah menuju toko dan kafe. Ariport terdekat hanya berjarak
-                    20 km di Ivalo. Parkir gratis di tempat. Wi - Fi gratis.
-                    Selamat datang!
+                    {{ detailAccomodation.description }}
                   </p>
                 </div>
                 <hr />
@@ -216,7 +209,14 @@
               >
                 <div class="row">
                   <div class="col-6">
-                    <h5 class="fw-bold">Rp.300.000</h5>
+                    <h5 class="fw-bold">
+                      {{
+                        detailAccomodation.price?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })
+                      }}
+                    </h5>
                     <p class="p-size text-secondary">Per malam</p>
                   </div>
                   <div class="col-6">
@@ -267,7 +267,15 @@
                   </p>
                   <div class="row">
                     <div class="col-6">
-                      <p>Rp.300.000 X 3</p>
+                      <p>
+                        {{
+                          detailAccomodation.price?.toLocaleString("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                          })
+                        }}
+                        X 3
+                      </p>
                     </div>
                     <div class="col-6 text-end">
                       <p>Rp.900.000</p>
@@ -275,15 +283,35 @@
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <p>Biaya kebersihan</p>
+                      <p>Biaya layanan</p>
                     </div>
                     <div class="col-6 text-end">
-                      <p>Rp.50.000</p>
+                      <p>
+                        {{
+                          detailAccomodation.serviceCharge?.toLocaleString(
+                            "id-ID",
+                            {
+                              style: "currency",
+                              currency: "IDR",
+                            }
+                          )
+                        }}
+                      </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <p>Biaya layanan</p>
+                      <p>
+                        {{
+                          detailAccomodation.cleaningFee?.toLocaleString(
+                            "id-ID",
+                            {
+                              style: "currency",
+                              currency: "IDR",
+                            }
+                          )
+                        }}
+                      </p>
                     </div>
                     <div class="col-6 text-end">
                       <p>Rp.0</p>
@@ -433,10 +461,22 @@
 
 <script>
 import CustomNavbar from "../components/CustomNavigationBar.vue";
+import { mapState, mapActions } from "pinia";
+import { useAccomodationStore } from "../stores/accomodation.js";
+
 export default {
   name: "DetailPage",
+  computed: {
+    ...mapState(useAccomodationStore, ["detailAccomodation"]),
+  },
+  methods: {
+    ...mapActions(useAccomodationStore, ["handleShowDetail"]),
+  },
   components: {
     CustomNavbar,
+  },
+  created() {
+    this.handleShowDetail(this.$route.params.id);
   },
 };
 </script>
