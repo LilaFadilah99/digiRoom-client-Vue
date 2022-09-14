@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+* {
+  font-family: "Mulish", sans-serif;
+}
+
+.search-form {
+  font-size: 14px;
+}
+.nav-1 {
+  font-size: 14px;
+}
+
+.ticket-location {
+  font-size: 13px;
+}
+
+.hero-image p {
+  font-size: 14px;
+}
+
+.text-content {
+  font-size: 14px;
+}
+
+.facility p {
+  margin-bottom: 10px;
+}
+
+.p-size {
+  font-size: 14px;
+}
+
+.p-sizing p {
+  font-size: 12px;
+}
+.p-sizing {
+  font-size: 12px;
+}
+
+.p-font-size {
+  font-size: 12px;
+}
+
+.back-button:hover {
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.color-grey {
+  color: #484848;
+}
+
+.font-info p {
+  font-size: 15px;
+}
+
+.information:hover {
+  background-color: #f0f0f1;
+}

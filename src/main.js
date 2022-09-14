@@ -1,14 +1,20 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp, markRaw } from "vue";
+import { createPinia } from "pinia";
+import router from "./router";
+import Axios from "axios";
 
-import App from './App.vue'
-import router from './router'
+import App from "./App.vue";
 
-import './assets/main.css'
+const pinia = createPinia();
 
-const app = createApp(App)
+pinia.use(({ store }) => {
+  store.router = markRaw;
+});
+Axios.defaults.baseURL = "http://localhost:3000";
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(router);
+app.use(pinia);
+
+app.mount("#app");
