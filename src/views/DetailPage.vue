@@ -23,6 +23,7 @@
                   :src="detailAccomodation.imgUrl"
                   alt=""
                   class="img-fluid rounded-start"
+                  style="width: 900px; height: 360px; object-fit: cover"
                 />
               </div>
               <div class="col-6">
@@ -468,6 +469,14 @@ export default {
   name: "DetailPage",
   computed: {
     ...mapState(useAccomodationStore, ["detailAccomodation"]),
+    estimatePrice() {
+      let check_in = "09/17/2020";
+      let check_out = "09/22/2020";
+      return Math.ceil(
+        (new Date(check_out).getTime() - new Date(check_in).getTime()) /
+          (1000 * 60 * 60 * 24)
+      );
+    },
   },
   methods: {
     ...mapActions(useAccomodationStore, ["handleShowDetail"]),

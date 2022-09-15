@@ -59,3 +59,18 @@
 .information:hover {
   background-color: #f0f0f1;
 }
+
+.ticket-location {
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 8px;
+  right: 30px;
+  color: white;
+}
+.favorite-button:hover {
+  color: #ee2656;
+  cursor: pointer;
+}

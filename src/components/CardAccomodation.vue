@@ -1,16 +1,17 @@
 <template>
   <!-- row 1 -->
-  <div
-    class="col-3 ticket-location mb-3"
-    @click="handleShowDetail(accomodation.id)"
-  >
+  <div class="col-3 ticket-location mb-3">
     <img
       :src="accomodation.imgUrl"
       alt=""
       class="img-fluid rounded-4"
       style="width: 300px; height: 240px; object-fit: cover"
+      @click="handleShowDetail(accomodation.id)"
     />
     <br /><br />
+    <h4 class="favorite-button" @click="handleAddToFavorite(accomodation.id)">
+      <i class="fa-solid fa-heart"></i>
+    </h4>
     <p class="fw-bold">{{ accomodation.name }}</p>
     <p class="text-secondary">{{ accomodation.location }}</p>
     <p class="fw-bold">
@@ -32,7 +33,10 @@ export default {
   name: "CardAccomodation",
   props: ["accomodation"],
   methods: {
-    ...mapActions(useAccomodationStore, ["handleShowDetail"]),
+    ...mapActions(useAccomodationStore, [
+      "handleShowDetail",
+      "handleAddToFavorite",
+    ]),
   },
 };
 </script>

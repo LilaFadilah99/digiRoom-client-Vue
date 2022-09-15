@@ -3,12 +3,18 @@ import HomePage from "../views/HomePage.vue";
 import DetailPage from "../views/DetailPage.vue";
 import AccountPage from "../views/AccountPage.vue";
 import FavoritePage from "../views/FavoritePage.vue";
+import LoginPage from "../views/LoginPage.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomePage,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginPage,
   },
   {
     path: "/detail/:id",

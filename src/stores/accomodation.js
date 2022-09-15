@@ -28,7 +28,29 @@ export const useAccomodationStore = defineStore({
       console.log(id);
       Axios({
         method: "GET",
-        url: `/accomodation/${id}`,
+        url: `/accomodation/all/${id}`,
+      })
+        .then(({ data }) => {
+          console.log(data);
+          this.detailAccomodation = data;
+          router.push({
+            name: "detail",
+            params: {
+              id: data.id,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleAddToFavorite(id) {
+      Axios({
+        method: "GET",
+        url: `/accomodation/favorites/:id/${id}`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
       })
         .then(({ data }) => {
           console.log(data);

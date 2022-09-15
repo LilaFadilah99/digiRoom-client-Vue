@@ -90,7 +90,11 @@
                 <li><a class="dropdown-item" href="#">Pesanana</a></li>
                 <li><a class="dropdown-item" href="#">Akun</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#">Login</a></li>
+                <li>
+                  <router-link class="dropdown-item" to="/login"
+                    >Login</router-link
+                  >
+                </li>
                 <li><a class="dropdown-item" href="#">Daftar</a></li>
               </ul>
             </div>
