@@ -14,8 +14,11 @@
           <div class="row justify-content-center">
             <div class="col-9">
               <!-- Favorite Card -->
-              <CardFavorite />
-              <CardFavorite />
+              <CardFavorite
+                v-for="favorite in dataFavorite"
+                :key="favorite"
+                :favorite="favorite"
+              />
             </div>
           </div>
         </div>
@@ -28,11 +31,23 @@
 <script>
 import CustomNavbar from "../components/CustomNavigationBar.vue";
 import CardFavorite from "../components/CardFavorite.vue";
+import { mapActions, mapState } from "pinia";
+import { useAccomodationStore } from "../stores/accomodation.js";
+
 export default {
   name: "FavoritePage",
   components: {
     CustomNavbar,
     CardFavorite,
+  },
+  computed: {
+    ...mapState(useAccomodationStore, ["dataFavorite"]),
+  },
+  methods: {
+    ...mapActions(useAccomodationStore, ["handleGetFavorites"]),
+  },
+  created() {
+    this.handleGetFavorites();
   },
 };
 </script>

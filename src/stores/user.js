@@ -8,7 +8,6 @@ export const useUserStore = defineStore({
     return {
       email: "",
       password: "",
-
       access_token: localStorage.access_token || null,
     };
   },
@@ -32,6 +31,11 @@ export const useUserStore = defineStore({
         .catch((err) => {
           console.log(err);
         });
+    },
+    handleLogout() {
+      localStorage.removeItem("access_token");
+      this.access_token = null;
+      router.push("/");
     },
   },
 });

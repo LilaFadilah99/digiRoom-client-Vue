@@ -113,9 +113,9 @@ export default {
   methods: {
     ...mapActions(useUserStore, ["handleLogin"]),
   },
-  created() {
-    this.handleLogin;
-  },
+  // created() {
+  //   this.handleLogin;
+  // },
 };
 </script>
 

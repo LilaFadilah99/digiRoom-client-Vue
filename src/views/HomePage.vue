@@ -14,6 +14,7 @@
         </div>
       </div>
     </section>
+    <PaginationButton />
   </div>
 </template>
 
@@ -22,28 +23,24 @@ import CustomNavbar from "../components/CustomNavigationBar.vue";
 import CardAccomodation from "../components/CardAccomodation.vue";
 import { mapState, mapActions } from "pinia";
 import { useAccomodationStore } from "../stores/accomodation.js";
+import PaginationButton from "../components/PaginationButton.vue";
 
 export default {
   name: "HomePage",
   components: {
     CustomNavbar,
     CardAccomodation,
+    PaginationButton,
   },
   computed: {
     ...mapState(useAccomodationStore, ["accomodations"]),
   },
   methods: {
-    ...mapActions(useAccomodationStore, ["handleGetTransportation"]),
+    ...mapActions(useAccomodationStore, ["handleGetAccomodation"]),
   },
   created() {
-    // console.log(this.accomodations, "hello");
-    this.handleGetTransportation();
+    this.handleGetAccomodation();
   },
-  // watch: {
-  //   accomodations(n) {
-  //     console.log(n[0], "ini watch");
-  //   },
-  // },
 };
 </script>
 

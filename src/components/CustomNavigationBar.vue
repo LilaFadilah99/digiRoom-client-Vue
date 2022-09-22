@@ -25,42 +25,18 @@
             <div class="col-9 rounded-pill px-5 py-2 nav-search-bar">
               <div class="row">
                 <div class="col p-0">
-                  <form class="d-flex" role="search">
-                    <input
-                      class="p-0 text-center form-control border-0 search-form"
-                      type="search"
-                      placeholder="Accomodation"
-                      aria-label="Search"
-                    />
-                    <!-- <span style="font-size: 30px; color: #a5a9ad">|</span> -->
-                    <input
-                      class="p-0 text-center form-control border-0 search-form"
-                      type="search"
-                      placeholder="Price"
-                      aria-label="Search"
-                    />
-                    <!-- <span style="font-size: 30px; color: #a5a9ad">|</span> -->
-                    <input
-                      class="p-0 text-center form-control border-0 search-form"
-                      type="search"
-                      placeholder="Category"
-                      aria-label="Search"
-                    />
-                    <button
-                      class="btn btn-danger btn-sm rounded-circle"
-                      type="submit"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                  </form>
+                  <SearchForm />
                 </div>
               </div>
             </div>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item me-3">
-              <a class="nav-link active fw-bold" aria-current="page" href="#"
-                >Mulai Temukan Penginapan</a
+              <router-link
+                class="nav-link active fw-bold find-accomodation"
+                aria-current="page"
+                to="/"
+                >Mulai Temukan Penginapan</router-link
               >
             </li>
             <!-- profile -->
@@ -86,16 +62,31 @@
                 ></i>
               </button>
               <ul class="dropdown-menu" style="left: -90px">
-                <li><a class="dropdown-item" href="#">Favorit</a></li>
-                <li><a class="dropdown-item" href="#">Pesanana</a></li>
-                <li><a class="dropdown-item" href="#">Akun</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
+                <li v-if="access_token">
+                  <router-link class="dropdown-item" to="/favorite"
+                    >Favorit</router-link
+                  >
+                </li>
+                <li v-if="access_token">
+                  <a class="dropdown-item" href="#">Pesanan</a>
+                </li>
+                <li v-if="access_token">
+                  <a class="dropdown-item" href="#">Akun</a>
+                </li>
+                <li v-if="access_token"><hr class="dropdown-divider" /></li>
+                <li v-if="!access_token">
                   <router-link class="dropdown-item" to="/login"
                     >Login</router-link
                   >
                 </li>
-                <li><a class="dropdown-item" href="#">Daftar</a></li>
+                <li v-if="!access_token">
+                  <a class="dropdown-item" href="#">Daftar</a>
+                </li>
+                <li v-if="access_token">
+                  <a class="dropdown-item" href="#" @click="handleLogout"
+                    >Logout</a
+                  >
+                </li>
               </ul>
             </div>
           </ul>
@@ -108,8 +99,21 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "pinia";
+import { useUserStore } from "../stores/user.js";
+import SearchForm from "../components/SearchForm.vue";
+
 export default {
   name: "CustomNavigationBar",
+  components: {
+    SearchForm,
+  },
+  computed: {
+    ...mapState(useUserStore, ["access_token"]),
+  },
+  methods: {
+    ...mapActions(useUserStore, ["handleLogout"]),
+  },
 };
 </script>
 
@@ -117,5 +121,8 @@ export default {
 .nav-search-bar {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.find-accomodation:hover {
+  color: #ee2656;
 }
 </style>
