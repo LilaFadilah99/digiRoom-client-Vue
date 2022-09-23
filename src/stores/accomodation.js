@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import Axios from "axios";
+// import Axios from "axios";
+import Axios from "../config/axios";
 import router from "../router";
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({
@@ -25,6 +26,9 @@ export const useAccomodationStore = defineStore({
       cleaningFee: null,
       transactionToken: null,
       dataBooking: {},
+      location: "",
+      imageApi: {},
+      venue: {},
     };
   },
 
@@ -55,6 +59,7 @@ export const useAccomodationStore = defineStore({
           this.roomPrice = data.price;
           this.serviceCharge = data.serviceCharge;
           this.cleaningFee = data.cleaningFee;
+          this.location = data.location;
           router.push({
             name: "detail",
             params: {
@@ -171,6 +176,34 @@ export const useAccomodationStore = defineStore({
         .then(({ data }) => {
           console.log(data);
           this.dataBooking = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    handleGetImageApi(id) {
+      Axios({
+        method: "GET",
+        url: `/imageApi/${id}`,
+      })
+        .then(({ data }) => {
+          console.log(data);
+          this.imageApi = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    handleGetVenue(id) {
+      Axios({
+        method: "GET",
+        url: `/event/${id}`,
+      })
+        .then(({ data }) => {
+          console.log(data);
+          this.venue = data;
         })
         .catch((err) => {
           console.log(err);

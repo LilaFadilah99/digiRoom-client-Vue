@@ -5,7 +5,9 @@
       class="navbar navbar-expand-lg pt-3 nav-1 d-flex justify-content-center"
     >
       <div class="container d-flex justify-content-between">
-        <a class="navbar-brand text-danger fw-bold" href="#">Navbar</a>
+        <a class="navbar-brand text-danger fw-bold" href="#"
+          ><span class="text-dark">D</span> -Room</a
+        >
         <button
           class="navbar-toggler"
           type="button"

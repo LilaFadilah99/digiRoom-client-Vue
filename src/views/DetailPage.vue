@@ -30,7 +30,7 @@
                 <div class="row mb-2">
                   <div class="col-6">
                     <img
-                      src="https://a0.muscache.com/im/pictures/be5ec43d-245a-4c09-9bb7-a5e1b8eb56b3.jpg?im_w=720"
+                      :src="imageApi.image1"
                       alt=""
                       class="img-fluid"
                       style="width: 500px; height: 175px; object-fit: cover"
@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-6">
                     <img
-                      src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
+                      :src="imageApi.image2"
                       alt=""
                       class="img-fluid"
                       style="width: 500px; height: 175px; object-fit: cover"
@@ -48,7 +48,7 @@
                 <div class="row">
                   <div class="col-6">
                     <img
-                      src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
+                      :src="imageApi.image3"
                       alt=""
                       class="img-fluid"
                       style="width: 500px; height: 175px; object-fit: cover"
@@ -56,7 +56,7 @@
                   </div>
                   <div class="col-6">
                     <img
-                      src="https://a0.muscache.com/im/pictures/7441ac79-c903-40c9-bf8e-39f0733fa3a3.jpg?im_w=720"
+                      :src="imageApi.image4"
                       alt=""
                       class="img-fluid"
                       style="width: 500px; height: 175px; object-fit: cover"
@@ -193,11 +193,18 @@
                 <hr />
                 <!-- --------------------date------------ -->
                 <div class="row my-5">
-                  <h4 class="fw-bold">5 malam di Inari</h4>
-                  <p class="p-size text-secondary">17 Sep 2022 - 22 Sep 2022</p>
-                  <img src="./date.png" alt="" class="img-fluid" />
+                  <h4 class="fw-bold">Venues worldwide</h4>
+                  <p class="p-size text-secondary">
+                    Lihat daftar kesukaan anda
+                  </p>
+                  <VenueList
+                    v-for="dataVenue in venue"
+                    :key="dataVenue"
+                    :dataVenue="dataVenue"
+                  />
                 </div>
               </div>
+              <!-- ---------------------------event---------- -->
               <!-- right -->
               <CheckinForm />
               <!-- -----------------comment---------------- -->
@@ -328,7 +335,7 @@
                 <h4 class="fw-bold">Lokasi Anda</h4>
                 <p class="text-secondary">Inari, Finlandia</p>
                 <div class="col">
-                  <img src="./location.png" alt="" class="img-fluid" />
+                  <img src="" alt="" class="img-fluid" />
                 </div>
               </div>
             </div>
@@ -345,11 +352,16 @@ import CustomNavbar from "../components/CustomNavigationBar.vue";
 import { mapState, mapActions } from "pinia";
 import { useAccomodationStore } from "../stores/accomodation.js";
 import CheckinForm from "../components/CheckinForm.vue";
+import VenueList from "../components/VenueList.vue";
 
 export default {
   name: "DetailPage",
   computed: {
-    ...mapState(useAccomodationStore, ["detailAccomodation"]),
+    ...mapState(useAccomodationStore, [
+      "detailAccomodation",
+      "imageApi",
+      "venue",
+    ]),
     estimatePrice() {
       let check_in = "09/17/2020";
       let check_out = "09/22/2020";
@@ -360,14 +372,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useAccomodationStore, ["handleShowDetail"]),
+    ...mapActions(useAccomodationStore, [
+      "handleShowDetail",
+      "handleGetImageApi",
+      "handleGetVenue",
+    ]),
   },
   components: {
     CustomNavbar,
     CheckinForm,
+    VenueList,
   },
   created() {
     this.handleShowDetail(this.$route.params.id);
+    this.handleGetImageApi(this.$route.params.id);
+    this.handleGetVenue(this.$route.params.id);
   },
 };
 </script>
